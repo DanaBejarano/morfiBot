@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'" />
+  <title>Ruleta</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="barra">
+      <span class="titulo">🎀 Ruleta</span>
+      <div class="controles">
+        <button id="btn-fijar" class="ctrl activo" title="Siempre visible">📌</button>
+        <button id="btn-min" class="ctrl" title="Minimizar">–</button>
+        <button id="btn-cerrar" class="ctrl" title="Cerrar">×</button>
+      </div>
+    </header>
+
+    <section class="ruleta-wrap">
+      <div class="puntero"></div>
+      <canvas id="ruleta" width="600" height="600"></canvas>
+      <button id="btn-girar" class="girar">¡Girar!</button>
+    </section>
+
+    <div id="resultado" class="resultado" aria-live="polite"></div>
+
+    <section class="panel">
+      <form id="form-agregar" class="agregar">
+        <input id="input-nombre" type="text" placeholder="Agregar nombre u objeto…" autocomplete="off" />
+        <button type="submit" class="btn">+</button>
+      </form>
+
+      <ul id="lista" class="lista"></ul>
+
+      <div class="acciones">
+        <label class="check">
+          <input id="chk-quitar" type="checkbox" />
+          Quitar ganador
+        </label>
+        <button id="btn-pegar" class="btn-sec" title="Pegar varios, uno por línea">Pegar lista</button>
+        <button id="btn-mezclar" class="btn-sec">Mezclar</button>
+        <button id="btn-vaciar" class="btn-sec peligro">Vaciar</button>
+      </div>
+    </section>
+  </div>
+
+  <dialog id="dlg-pegar" class="dialogo">
+    <form method="dialog">
+      <p>Un elemento por línea (o separados por coma):</p>
+      <textarea id="txt-pegar" rows="8"></textarea>
+      <div class="dlg-botones">
+        <button value="cancelar" class="btn-sec">Cancelar</button>
+        <button value="ok" class="btn">Agregar</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="renderer.js"></script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+{
+  "name": "morfibot",
+  "version": "0.1.0",
+  "description": "Ruleta flotante rosa para sortear nombres u objetos",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^33.0.0"
+  }
+}

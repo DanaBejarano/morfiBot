@@ -1,0 +1,228 @@
+/* Paleta: cambiá estos tokens cuando tengas el diseño de Figma */
+:root {
+  --rosa-50: #fff0f6;
+  --rosa-100: #ffdeeb;
+  --rosa-200: #fcc2d7;
+  --rosa-300: #faa2c1;
+  --rosa-400: #f783ac;
+  --rosa-500: #f06595;
+  --rosa-600: #e64980;
+  --rosa-700: #c2255c;
+  --texto: #5c1a38;
+  --blanco: #ffffff;
+  --radio: 20px;
+  --fuente: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  height: 100%;
+  background: transparent;
+  font-family: var(--fuente);
+  color: var(--texto);
+  user-select: none;
+  overflow: hidden;
+}
+
+.app {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(160deg, var(--rosa-50), var(--rosa-100));
+  border: 2px solid var(--rosa-200);
+  border-radius: var(--radio);
+  overflow: hidden;
+}
+
+/* Barra superior: se usa para arrastrar la ventana */
+.barra {
+  -webkit-app-region: drag;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  background: var(--rosa-300);
+  color: var(--blanco);
+}
+.titulo { font-weight: 700; letter-spacing: .5px; }
+.controles { display: flex; gap: 6px; -webkit-app-region: no-drag; }
+.ctrl {
+  width: 26px; height: 26px;
+  border: none; border-radius: 50%;
+  background: rgba(255,255,255,.35);
+  color: var(--blanco);
+  font-size: 15px; line-height: 1;
+  cursor: pointer;
+}
+.ctrl:hover { background: rgba(255,255,255,.6); }
+.ctrl.activo { background: var(--rosa-600); }
+#btn-cerrar:hover { background: var(--rosa-700); }
+
+/* Ruleta */
+.ruleta-wrap {
+  position: relative;
+  padding: 14px 20px 6px;
+  display: flex;
+  justify-content: center;
+}
+#ruleta {
+  width: 100%;
+  max-width: 300px;
+  aspect-ratio: 1;
+  filter: drop-shadow(0 6px 14px rgba(230,73,128,.3));
+}
+.puntero {
+  position: absolute;
+  top: 6px; left: 50%;
+  transform: translateX(-50%);
+  width: 0; height: 0;
+  border-left: 14px solid transparent;
+  border-right: 14px solid transparent;
+  border-top: 26px solid var(--rosa-700);
+  z-index: 2;
+  filter: drop-shadow(0 2px 2px rgba(0,0,0,.2));
+}
+.girar {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -40%);
+  width: 72px; height: 72px;
+  border-radius: 50%;
+  border: 4px solid var(--blanco);
+  background: var(--rosa-600);
+  color: var(--blanco);
+  font-weight: 800;
+  font-size: 14px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(194,37,92,.4);
+  transition: transform .15s;
+}
+.girar:hover:not(:disabled) { transform: translate(-50%, -40%) scale(1.07); }
+.girar:disabled { opacity: .7; cursor: default; }
+
+.resultado {
+  min-height: 30px;
+  text-align: center;
+  font-weight: 800;
+  font-size: 18px;
+  color: var(--rosa-700);
+  padding: 0 12px;
+}
+.resultado.pop { animation: pop .4s ease; }
+@keyframes pop {
+  0% { transform: scale(.6); opacity: 0; }
+  70% { transform: scale(1.15); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* Panel de la lista */
+.panel {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 8px 14px 14px;
+}
+.agregar { display: flex; gap: 6px; }
+input[type="text"], textarea {
+  flex: 1;
+  border: 2px solid var(--rosa-200);
+  border-radius: 12px;
+  padding: 8px 10px;
+  font: inherit;
+  color: var(--texto);
+  background: var(--blanco);
+  outline: none;
+  user-select: text;
+}
+input[type="text"]:focus, textarea:focus { border-color: var(--rosa-500); }
+
+.btn {
+  border: none;
+  border-radius: 12px;
+  padding: 0 14px;
+  background: var(--rosa-500);
+  color: var(--blanco);
+  font-weight: 700;
+  font-size: 18px;
+  cursor: pointer;
+}
+.btn:hover { background: var(--rosa-600); }
+
+.lista {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.lista::-webkit-scrollbar { width: 6px; }
+.lista::-webkit-scrollbar-thumb { background: var(--rosa-300); border-radius: 3px; }
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 6px 4px 10px;
+  background: var(--blanco);
+  border-radius: 10px;
+}
+.item .color { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+.item .nombre {
+  flex: 1;
+  border: none;
+  background: transparent;
+  font: inherit;
+  color: var(--texto);
+  padding: 4px 0;
+  outline: none;
+  user-select: text;
+}
+.item .nombre:focus { border-bottom: 1px dashed var(--rosa-400); }
+.item .borrar {
+  border: none;
+  background: none;
+  color: var(--rosa-400);
+  font-size: 18px;
+  cursor: pointer;
+  padding: 0 4px;
+}
+.item .borrar:hover { color: var(--rosa-700); }
+.vacio { text-align: center; opacity: .6; font-size: 13px; padding: 10px; }
+
+.acciones { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.check { display: flex; align-items: center; gap: 4px; font-size: 13px; margin-right: auto; cursor: pointer; }
+.check input { accent-color: var(--rosa-600); }
+.btn-sec {
+  border: 2px solid var(--rosa-300);
+  background: var(--blanco);
+  color: var(--rosa-700);
+  border-radius: 10px;
+  padding: 4px 10px;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.btn-sec:hover { background: var(--rosa-100); }
+.btn-sec.peligro:hover { background: var(--rosa-600); color: var(--blanco); border-color: var(--rosa-600); }
+
+/* Diálogo de pegar lista */
+.dialogo {
+  margin: auto;
+  border: 2px solid var(--rosa-300);
+  border-radius: var(--radio);
+  padding: 16px;
+  width: 85%;
+  background: var(--rosa-50);
+  color: var(--texto);
+}
+.dialogo::backdrop { background: rgba(194,37,92,.25); }
+.dialogo p { font-size: 13px; margin-bottom: 8px; }
+.dialogo textarea { width: 100%; resize: vertical; }
+.dlg-botones { display: flex; justify-content: flex-end; gap: 6px; margin-top: 10px; }
+.dlg-botones .btn { font-size: 13px; padding: 6px 14px; }
