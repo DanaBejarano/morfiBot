@@ -239,13 +239,13 @@ dlgPegar.addEventListener('close', () => {
 });
 
 // Controles de ventana (solo existen dentro de Electron)
-const ventana = window.ventana;
-document.getElementById('btn-min').addEventListener('click', () => ventana?.minimizar());
-document.getElementById('btn-cerrar').addEventListener('click', () => ventana?.cerrar());
+const controlVentana = window.ventana;
+document.getElementById('btn-min').addEventListener('click', () => controlVentana?.minimizar());
+document.getElementById('btn-cerrar').addEventListener('click', () => controlVentana?.cerrar());
 const btnFijar = document.getElementById('btn-fijar');
 btnFijar.addEventListener('click', async () => {
-  if (!ventana) return;
-  const fijado = await ventana.alternarFijado();
+  if (!controlVentana) return;
+  const fijado = await controlVentana.alternarFijado();
   btnFijar.classList.toggle('activo', fijado);
 });
 
